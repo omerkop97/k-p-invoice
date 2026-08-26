@@ -24,6 +24,7 @@ const extractionSchema = z.object({
   lineItems: z.array(
     z.object({
       description: z.string(),
+      details: z.string(),
       quantity: z.number(),
       unitPrice: z.number(),
     }),
@@ -49,6 +50,7 @@ function systemPrompt(): string {
     "- The transcript may be Dutch or English; keep names, descriptions and notes in the transcript's language.",
     "- Resolve relative dates like 'end of next month' to a concrete YYYY-MM-DD date. If no validity is mentioned, use an empty string.",
     "- Prices are in euros. quantity is the amount (hours, days, pieces); unitPrice is the price per unit in euros.",
+    "- Per line item, put extra context in its `details` field: who works which hours (e.g. time-and-materials/regie breakdowns per person), the work location, or other line-specific remarks. Empty string if none.",
     "- vatRate is a percentage; use 21 when the transcript does not mention VAT.",
     "- vatMode: use 'verlegd' ONLY when the transcript mentions reverse-charged VAT ('btw verlegd', 'VAT reverse-charged'); otherwise 'standard'.",
     "- Use an empty string for any text field the transcript does not mention.",

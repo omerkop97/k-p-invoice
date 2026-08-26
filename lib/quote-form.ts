@@ -5,6 +5,7 @@ import { quoteSchema, type LineItem, type Quote } from "@/lib/quote";
 
 export interface LineItemFormState {
   description: string;
+  details: string;
   quantity: string;
   unitPrice: string;
 }
@@ -32,6 +33,7 @@ export function toFormState(quote: Quote): QuoteFormState {
     address: { ...quote.address },
     lineItems: quote.lineItems.map((item) => ({
       description: item.description,
+      details: item.details,
       quantity: String(item.quantity),
       unitPrice: String(item.unitPrice),
     })),
@@ -54,6 +56,7 @@ export function fromFormState(form: QuoteFormState): FormValidationResult {
     address: form.address,
     lineItems: form.lineItems.map((item) => ({
       description: item.description.trim(),
+      details: item.details.trim(),
       quantity: parseNumber(item.quantity),
       unitPrice: parseNumber(item.unitPrice),
     })),
@@ -87,6 +90,7 @@ export function draftLineItems(form: QuoteFormState): LineItem[] {
     const unitPrice = parseNumber(item.unitPrice);
     return {
       description: item.description,
+      details: item.details,
       quantity: Number.isFinite(quantity) && quantity > 0 ? quantity : 0,
       unitPrice: Number.isFinite(unitPrice) && unitPrice >= 0 ? unitPrice : 0,
     };
@@ -100,5 +104,5 @@ export function draftVatRate(form: QuoteFormState): number {
 }
 
 export function emptyLineItemForm(): LineItemFormState {
-  return { description: "", quantity: "1", unitPrice: "" };
+  return { description: "", details: "", quantity: "1", unitPrice: "" };
 }

@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     borderBottomColor: line,
   },
   colDescription: { flexBasis: 0, flexGrow: 5, paddingRight: 8 },
+  lineDetails: { color: muted, fontSize: 8, marginTop: 3, lineHeight: 1.5 },
   colQty: { flexBasis: 0, flexGrow: 1, textAlign: "right" },
   colPrice: { flexBasis: 0, flexGrow: 2, textAlign: "right" },
   colAmount: { flexBasis: 0, flexGrow: 2, textAlign: "right" },
@@ -208,7 +209,12 @@ export default function QuotePdf({ quote, t, locale }: QuotePdfProps) {
         </View>
         {quote.lineItems.map((item, index) => (
           <View key={index} style={styles.row} wrap={false}>
-            <Text style={styles.colDescription}>{item.description}</Text>
+            <View style={styles.colDescription}>
+              <Text>{item.description}</Text>
+              {item.details ? (
+                <Text style={styles.lineDetails}>{item.details}</Text>
+              ) : null}
+            </View>
             <Text style={styles.colQty}>{item.quantity}</Text>
             <Text style={styles.colPrice}>
               {formatMoney(item.unitPrice, locale)}

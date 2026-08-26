@@ -179,6 +179,17 @@ export default function QuoteReviewForm({
                   autoComplete="off"
                 />
               </Field>
+              <Field
+                label={t.quote.fields.lineDetails}
+                error={err(`lineItems.${index}.details`)}
+              >
+                <textarea
+                  className={`${inputClass} min-h-14 resize-y`}
+                  value={item.details}
+                  onChange={(e) => setLineItem(index, { details: e.target.value })}
+                  placeholder={t.quote.fields.lineDetailsPlaceholder}
+                />
+              </Field>
               <div className="grid grid-cols-[1fr_1fr_auto] items-end gap-2">
                 <Field label={t.quote.fields.qty} error={err(`lineItems.${index}.quantity`)}>
                   <input

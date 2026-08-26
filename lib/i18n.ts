@@ -85,6 +85,9 @@ const en = {
       city: "City",
       country: "Country",
       description: "Description *",
+      lineDetails: "Remarks (optional)",
+      lineDetailsPlaceholder:
+        "E.g. names and hours for time-and-materials work, or the site location.",
       qty: "Qty *",
       unitPrice: "Unit price (€) *",
       vatRate: "VAT rate (%)",
@@ -226,6 +229,9 @@ const nl: Dict = {
       city: "Plaats",
       country: "Land",
       description: "Omschrijving *",
+      lineDetails: "Opmerkingen (optioneel)",
+      lineDetailsPlaceholder:
+        "Bijv. namen en uren bij regiewerk, of de locatie van de werkplek.",
       qty: "Aantal *",
       unitPrice: "Stukprijs (€) *",
       vatRate: "Btw-tarief (%)",

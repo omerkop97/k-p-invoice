@@ -9,6 +9,9 @@ import { z } from "zod";
 
 export const lineItemSchema = z.object({
   description: z.string().min(1, "description_required"),
+  // Optional free-text remarks for this line: who works which hours on
+  // time-and-materials (regie) items, the work location, and so on.
+  details: z.string().default(""),
   quantity: z.number().positive("quantity_positive"),
   unitPrice: z.number().nonnegative("unit_price_nonnegative"), // in EUR
 });
@@ -55,7 +58,7 @@ export function emptyQuote(lang: "nl" | "en" = "nl"): Quote {
       city: "",
       country: lang === "nl" ? "Nederland" : "Netherlands",
     },
-    lineItems: [{ description: "", quantity: 1, unitPrice: 0 }],
+    lineItems: [{ description: "", details: "", quantity: 1, unitPrice: 0 }],
     vatMode: "standard",
     vatRate: 21,
     validUntil: "",
