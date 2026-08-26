@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// A saved quote draft. `quoteJson` holds the Zod-validated structured quote
+// (see lib/quote.ts) once extraction or manual editing has produced one.
+model QuoteDraft {
+  id          String       @id @default(cuid())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  title       String       @default("Untitled quote")
+  status      String       @default("draft") // draft | ready | exported
+  quoteJson   String?
+  transcripts Transcript[]
+}
+
+// Raw transcripts linked to a draft. A draft can hold several (re-recordings).
+model Transcript {
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  text      String
+  source    String     @default("manual") // deepgram | manual | sample
+  draftId   String
+  draft     QuoteDraft @relation(fields: [draftId], references: [id], onDelete: Cascade)
+}

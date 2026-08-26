@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Warm K&P Invoices palette: cream canvas, off-white cards, terracotta accent */
+@theme {
+  --color-cream: #f1ebdd;
+  --color-card: #fffdf8;
+  --color-soft: #f6efe2;
+  --color-ink: #26221c;
+  --color-muted: #756e60;
+  --color-line: #e5dcc8;
+  --color-accent: #a5502e;
+  --color-accent-dark: #8c4023;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
