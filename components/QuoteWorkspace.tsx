@@ -30,9 +30,9 @@ export default function QuoteWorkspace() {
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [transcript, setTranscript] = useState("");
   const [transcribing, setTranscribing] = useState(false);
-  const [voiceNotice, setVoiceNotice] = useState<"failed" | "sample" | null>(null);
+  const [voiceNotice, setVoiceNotice] = useState<"failed" | "sample" | "server" | null>(null);
   const [extracting, setExtracting] = useState(false);
-  const [extractNotice, setExtractNotice] = useState<"failed" | "sample" | null>(null);
+  const [extractNotice, setExtractNotice] = useState<"failed" | "sample" | "server" | null>(null);
   const [pdfWorking, setPdfWorking] = useState(false);
 
   const loadDrafts = useCallback(async () => {
@@ -80,8 +80,9 @@ export default function QuoteWorkspace() {
       setDraftId(data.draftId);
       if (data.source === "sample") setVoiceNotice("sample");
       await loadDrafts();
-    } catch {
-      setVoiceNotice("failed");
+    } catch (err) {
+      // A TypeError from fetch means the request never reached the server.
+      setVoiceNotice(err instanceof TypeError ? "server" : "failed");
     } finally {
       setTranscribing(false);
     }
@@ -106,8 +107,8 @@ export default function QuoteWorkspace() {
       if (data.draftId) setDraftId(data.draftId);
       if (data.source === "sample") setExtractNotice("sample");
       await loadDrafts();
-    } catch {
-      setExtractNotice("failed");
+    } catch (err) {
+      setExtractNotice(err instanceof TypeError ? "server" : "failed");
     } finally {
       setExtracting(false);
     }
@@ -273,12 +274,16 @@ export default function QuoteWorkspace() {
             {voiceNotice && (
               <p
                 className={`rounded-xl px-4 py-3 text-sm ${
-                  voiceNotice === "failed"
-                    ? "bg-red-500/10 text-red-700"
-                    : "bg-accent/10 text-accent-dark"
+                  voiceNotice === "sample"
+                    ? "bg-accent/10 text-accent-dark"
+                    : "bg-red-500/10 text-red-700"
                 }`}
               >
-                {voiceNotice === "failed" ? t.voice.transcribeFailed : t.voice.sampleUsed}
+                {voiceNotice === "sample"
+                  ? t.voice.sampleUsed
+                  : voiceNotice === "server"
+                    ? t.common.serverDown
+                    : t.voice.transcribeFailed}
               </p>
             )}
           </div>
@@ -295,14 +300,16 @@ export default function QuoteWorkspace() {
             {extractNotice && (
               <p
                 className={`rounded-xl px-4 py-3 text-sm ${
-                  extractNotice === "failed"
-                    ? "bg-red-500/10 text-red-700"
-                    : "bg-accent/10 text-accent-dark"
+                  extractNotice === "sample"
+                    ? "bg-accent/10 text-accent-dark"
+                    : "bg-red-500/10 text-red-700"
                 }`}
               >
-                {extractNotice === "failed"
-                  ? t.transcript.extractFailed
-                  : t.transcript.extractSampleUsed}
+                {extractNotice === "sample"
+                  ? t.transcript.extractSampleUsed
+                  : extractNotice === "server"
+                    ? t.common.serverDown
+                    : t.transcript.extractFailed}
               </p>
             )}
           </div>

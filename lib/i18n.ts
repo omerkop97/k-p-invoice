@@ -4,6 +4,10 @@
 export type Lang = "nl" | "en";
 
 const en = {
+  common: {
+    serverDown:
+      "Cannot reach the app server. Make sure the app is running, then try again.",
+  },
   hero: {
     brand: "K&P Invoices",
     title: "Record a job quote and turn it into a clean estimate draft.",
@@ -148,6 +152,10 @@ const en = {
 export type Dict = typeof en;
 
 const nl: Dict = {
+  common: {
+    serverDown:
+      "Kan de server niet bereiken. Controleer of de app nog draait en probeer het opnieuw.",
+  },
   hero: {
     brand: "K&P Invoices",
     title: "Spreek een offerte in en maak er een strakke conceptofferte van.",
