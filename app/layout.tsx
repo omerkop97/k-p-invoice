@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "K&P Invoices",
-  description: "Record a job quote and turn it into a clean estimate draft.",
+  title: "StemFactuur",
+  description: "Spreek je factuur in — StemFactuur maakt er een strakke offerte of factuur van.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

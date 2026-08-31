@@ -9,7 +9,7 @@ const en = {
       "Cannot reach the app server. Make sure the app is running, then try again.",
   },
   hero: {
-    brand: "K&P Invoices",
+    brand: "StemFactuur",
     title: "Record a job quote and turn it into a clean estimate draft.",
     subtitle:
       "Capture a short voice note, transcribe it, review the details, and prepare it for the final branded PDF.",
@@ -157,7 +157,7 @@ const nl: Dict = {
       "Kan de server niet bereiken. Controleer of de app nog draait en probeer het opnieuw.",
   },
   hero: {
-    brand: "K&P Invoices",
+    brand: "StemFactuur",
     title: "Spreek een offerte in en maak er een strakke conceptofferte van.",
     subtitle:
       "Neem een korte spraaknotitie op, transcribeer hem, controleer de details en maak hem klaar voor de definitieve pdf in huisstijl.",
